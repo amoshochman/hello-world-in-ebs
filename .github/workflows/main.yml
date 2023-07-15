@@ -48,9 +48,35 @@ jobs:
 
       - name: Deploy to AWS Elastic Beanstalk
         run: |
-          aws elasticbeanstalk create-environment \
+          # Install AWS CLI
+          pip install awscli --upgrade --user
+          export PATH=$PATH:~/.local/bin
+
+          # Create a temporary directory
+          mkdir temp
+
+          # Save the Docker image as a TAR file
+          docker save amoshochman/hello-world:latest | gzip > temp/image.tar.gz
+
+          # Create a ZIP file containing the TAR file
+          cd temp
+          zip -r ../docker-image.zip .
+
+          # Upload the ZIP file to S3 bucket
+          aws s3 cp ../docker-image.zip s3://amos-simple-bucket/docker-image.zip
+
+          # Clean up temporary files
+          cd ..
+          rm -rf temp
+
+          # Create a new application version in Elastic Beanstalk
+          aws elasticbeanstalk create-application-version \
             --application-name hello-world \
-            --environment-name Hello-world-env \
             --version-label v1.0.0 \
-            --platform Docker \
-            --docker-repository-name amoshochman/hello-world:latest
+            --source-bundle S3Bucket=amos-simple-bucket,S3Key=docker-image.zip
+
+          # Update the environment to use the new application version
+          aws elasticbeanstalk update-environment \
+            --environment-name Hello-world-env \
+            --version-label v1.0.0
+      
