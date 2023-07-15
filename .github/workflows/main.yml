@@ -34,7 +34,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t your-dockerhub-username/your-image-name:latest .
-          docker push your-dockerhub-username/your-image-name:latest
+          docker build -t amoshochman/hello-world:latest .
+          docker push amoshochman/hello-world:latest
         env:
             DOCKER_BUILDKIT: 1
