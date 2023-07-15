@@ -32,7 +32,7 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
           DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
         run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker login -u $DOCKER_USER -p $DOCKER_TOKEN
 
       - name: Build docker image
         run: docker build . --file Dockerfile --tag amoshochman/hello-world-in-ebs:latest
