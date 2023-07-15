@@ -53,4 +53,4 @@ jobs:
             --environment-name Hello-world-env \
             --version-label v1.0.0 \
             --platform Docker \
-            --docker-image amoshochman/hello-world:latest
+            --image-uri amoshochman/hello-world:latest
