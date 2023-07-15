@@ -38,4 +38,4 @@ jobs:
           file: Dockerfile
           context: .
           push: true
-          tag:
+          tags:
