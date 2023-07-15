@@ -51,7 +51,7 @@ jobs:
           aws elasticbeanstalk create-application-version \
             --application-name hello-world \
             --version-label v1.0.0 \
-            --source-bundle S3Bucket=amos-simple-bucket,S3Key=my-image.zip
+            --source-bundle S3Bucket=amos-simple-bucket,S3Key=hello-world.zip
           
           aws elasticbeanstalk update-environment \
             --environment-name Hello-world-env \
