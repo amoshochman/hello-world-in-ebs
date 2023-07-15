@@ -24,4 +24,4 @@ jobs:
           pip install -r requirements.txt
       # Run our unit tests using the test application
       - name: Run unit tests
-        run: pytesto
+        run: pytest
