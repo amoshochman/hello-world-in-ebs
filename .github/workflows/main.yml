@@ -27,13 +27,7 @@ jobs:
         run: pytest
 
       - name: Login to DockerHub
-        env:
-          DOCKER_USER: ${{secrets.DOCKER_USER}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-          DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
-        run: |
-          docker login -u $DOCKER_USER -p $DOCKER_TOKEN
-
-      - name: Build docker image
-        run: docker build . --file Dockerfile --tag amoshochman/hello-world-in-ebs:latest
-
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
