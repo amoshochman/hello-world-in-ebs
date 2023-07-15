@@ -54,7 +54,7 @@ jobs:
           aws elasticbeanstalk create-application-version \
             --application-name hello-world \
             --version-label v1.0.0 \
-            --source-bundle Type=Docker
+            --source-bundle DockerImage=amoshochman/hello-world:latest
       
           aws elasticbeanstalk update-environment \
             --environment-name Hello-world-env \
