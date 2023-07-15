@@ -48,11 +48,14 @@ jobs:
 
       - name: Deploy to AWS Elastic Beanstalk
         run: |
+          pip install awscli --upgrade --user
+          export PATH=$PATH:~/.local/bin
+      
           aws elasticbeanstalk create-application-version \
             --application-name hello-world \
             --version-label v1.0.0 \
-            --source-bundle S3Bucket=amos-simple-bucket,S3Key=hello-world.zip
-          
+            --source-bundle Type=Docker
+      
           aws elasticbeanstalk update-environment \
             --environment-name Hello-world-env \
             --version-label v1.0.0
