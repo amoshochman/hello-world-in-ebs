@@ -28,14 +28,15 @@ jobs:
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          file: Dockerfile
-          context: .
-          push: true
-          tags: hello-world-in-ebs:latest
+      - name: Build docker image
+        run: docker build . --file Dockerfile --tag amoshochman/hello-world-in-ebs:latest
+
+      - name: Docker push
+        run: docker push ${{secrets.DOCKER_USER}}/hello-world-in-ebs
+
